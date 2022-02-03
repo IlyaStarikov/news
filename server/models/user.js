@@ -1,4 +1,4 @@
-'use strict';
+/* 'use strict';
 const {
   Model
 } = require('sequelize');
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+ /*   static associate(models) {
       User.hasMany(models.News, {
         foreignKey: 'user_id',
         as: 'news',
@@ -25,5 +25,23 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+  return User;
+}; */
+
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    login: DataTypes.STRING,
+    password: DataTypes.INTEGER,
+    email:DataTypes.STRING,
+    avatar: DataTypes.STRING,
+    name: DataTypes.STRING
+  }, {});
+  User.associate = function(models) {
+    // associations can be defined here
+    User.hasMany(models.News, {
+      foreignKey: 'user_id',
+      as: 'news',
+    });
+  };
   return User;
 };
