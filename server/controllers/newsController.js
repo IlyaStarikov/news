@@ -1,4 +1,5 @@
 const { News } = require('../models');
+const { User } = require('../models');
 
 module.exports = {
   createNews(req, res) {
@@ -11,6 +12,7 @@ module.exports = {
     return News.findAll({
       order: [
         ['createdAt', 'DESC']],
+      include: [{model: User, as: 'user'}]
     })
       .then((news) => res.status(200).send(news))
       .catch((e) => res.status(400).send(e));
