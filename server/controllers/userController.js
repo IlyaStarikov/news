@@ -16,5 +16,9 @@ module.exports = {
       })
         .then((user) => res.status(200).send(user))
         .catch((e) => res.status(500).send(e));
+    },
+
+    getProfile(req, res) {
+      
     }
 }
