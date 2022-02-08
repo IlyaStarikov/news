@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { News } = require('../models');
 
@@ -19,6 +20,13 @@ module.exports = {
     },
 
     getProfile(req, res) {
-      
+      const { token } = req.body;
+      const isVerify = jwt.verify(token, process.env.accessTokenSecret);
+      return User.findOne({
+        where: {id: isVerify.id},
+        include: [{model: News, as: 'news'}]
+      })
+        .then((user) => res.status(200).send(user))
+        .catch((e) => res.status(500).send(e));
     }
 }
