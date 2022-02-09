@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const newsController = require('../controllers/newsController')
+const express = require('express');
+
+const router = express.Router();
+const newsController = require('../controllers/newsController');
 
 /* GET users listing. */
 router.get('/', newsController.getAllNews);
