@@ -25,6 +25,12 @@ module.exports = {
     return User.findOne({
       where: { id: isVerify.id },
       include: [{ model: News, as: 'news' }],
+      order: [
+        [
+          { model: News, as: 'news' },
+          'createdAt', 'DESC',
+        ],
+      ],
     })
       .then((user) => res.status(200).send(user))
       .catch((e) => res.status(500).send(e));
