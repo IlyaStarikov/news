@@ -21,7 +21,7 @@ module.exports = {
     });
     const payload = { id: user.id };
     const token = jwt.sign(payload, secret);
-    return res.json({ message: 'Registration was successful!', token });
+    return res.status(201).json({ message: 'Registration was successful!', token });
   },
 
   async login(req, res) {

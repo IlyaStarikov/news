@@ -12,11 +12,13 @@ module.exports = {
       const { header, content, tag } = req.body;
       const { picture } = req.files;
       const fileName = `${uuid.v4()}.jpg`;
-      picture.mv(path.resolve(__dirname, '..', 'uploads', fileName));
+      if (picture) {
+        picture.mv(path.resolve(__dirname, '..', 'uploads', fileName));
+      }
       return News.create({
         header, content, tag, picture: fileName, user_id: isVerify.id,
       })
-        .then((news) => res.status(200).send(news))
+        .then((news) => res.status(201).send(news))
         .catch((e) => res.status(500).send(e));
     }
     return res.status(403).send({ message: 'Not authorized' });
@@ -28,7 +30,6 @@ module.exports = {
         ['createdAt', 'DESC']],
       include: [{ model: User, as: 'user' }],
     })
-      .then((news) => res.status(200).send(news))
-      .catch((e) => res.status(400).send(e));
+      .then((news) => res.status(200).send(news));
   },
 };
